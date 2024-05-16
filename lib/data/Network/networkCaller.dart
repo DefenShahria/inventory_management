@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:get/get.dart';
+
 import 'package:http/http.dart';
 import 'package:inventory_management/data/Network/networkResponse.dart';
+import 'package:inventory_management/presentation/State_Holder/auth_controller.dart';
 
 class Networkcall {
   static Future<Networkresponse> getRequest(String url) async {

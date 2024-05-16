@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> nextScreen() async {
     await AuthController.getAccessToken();
     Future.delayed(const Duration(seconds: 3)).then((value) {
-      Get.offAll(()=> AuthController.isLoggedIn ?  const HomePage() : const SigninPage());
+      Get.offAll(()=> AuthController.isLoggedin ?  const HomePage() : const SigninPage());
     });
   }
 
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Spacer(),
-          Center(child: Text('Welcome Back ')),
+          Center(child: Text('Welcome Back ',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 30),)),
           Spacer(),
           CircularProgressIndicator(),
           SizedBox(height: 26,)
