@@ -35,7 +35,7 @@ class VerifyOtpController extends GetxController{
     }
   }
 
-  Future<bool> signInverify(String email, String otp ) async {
+  Future<bool> signInverify(String otp, String email ) async {
     _signInOTPInprogress = true;
     update();
     final Networkresponse response = await Networkcall().postRequest(
@@ -48,8 +48,9 @@ class VerifyOtpController extends GetxController{
     update();
     if (response.issuccess) {
       print(response.responseJson);
-      await AuthController.setAccessToken(response.responseJson?['data']['user']['api_token']);
-      await AuthController.setuserid(response.responseJson?['data']['original']['user']['id']);
+      final responseData = response.responseJson;
+      await AuthController.setAccessToken(responseData?['user']['api_token']);
+      await AuthController.setuserid(responseData?['user']['id']);
       _message =  'Otp verification Done';
       return true;
     } else {

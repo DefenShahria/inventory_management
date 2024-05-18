@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:inventory_management/data/color_plate.dart';
 import 'package:inventory_management/presentation/State_Holder/sign_in_Controller.dart';
+import 'package:inventory_management/presentation/UI/auth/SignIn_otp_Verification.dart';
 import 'package:inventory_management/presentation/UI/auth/sign_up_screen.dart';
 
-import 'otp_Verification.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({super.key});
@@ -62,6 +61,11 @@ class _SigninPageState extends State<SigninPage> {
 
                 GetBuilder<SigninController>(
                   builder: (signinController) {
+                    if (signinController.signinverificationInprogress) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                     return SizedBox(
                       width: double.infinity,
                         child: ElevatedButton(
@@ -89,12 +93,12 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
   Future<void> SignIn(SigninController signinController, String routename) async {
-    print('6666666666666666666666666666');
+
     final response = await signinController.verifySignin(
         _emailTEC.text.trim()
     );
     if (response) {
-      Get.to( OTP_verification(identifier_id: '', email: '${_emailTEC.text}', routename: routename,));
+      Get.to( Sign_verification(email: '${_emailTEC.text}',));
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

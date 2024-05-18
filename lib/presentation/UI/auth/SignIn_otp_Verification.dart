@@ -1,24 +1,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory_management/data/color_plate.dart';
 import 'package:inventory_management/presentation/State_Holder/otp_Verification_controller.dart';
 import 'package:inventory_management/presentation/UI/Home_page.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../data/color_plate.dart';
 
-
-class OTP_verification extends StatefulWidget {
-  const OTP_verification({super.key,required this.identifier_id, required this.email, });
-  final String? identifier_id;
+class Sign_verification extends StatefulWidget {
+  const Sign_verification({super.key, required this.email, });
   final String email;
 
-
   @override
-  State<OTP_verification> createState() => _PinCode_verificationState();
+  State<Sign_verification> createState() => _PinCode_verificationState();
 }
 
 
-class _PinCode_verificationState extends State<OTP_verification> {
+class _PinCode_verificationState extends State<Sign_verification> {
 
    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
    final TextEditingController _otpTEC = TextEditingController();
@@ -58,15 +55,11 @@ class _PinCode_verificationState extends State<OTP_verification> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
-                          const Text(
-                            'Enter the code  ',
-                          ),
                           const SizedBox(height: 16,),
                           Text(
                             'Enter the 6 digit code that we just sent to ${widget.email}',
                           ),
-                          const SizedBox(height: 4,),
-                          Text('${widget.identifier_id}',),
+
                           const SizedBox(height: 30,),
 
                           Padding(
@@ -113,17 +106,13 @@ class _PinCode_verificationState extends State<OTP_verification> {
                             width: double.infinity,
                             child: ElevatedButton(
                                 onPressed: () {
-                                      verifyOTP(verifyOtpController,'${widget.identifier_id}');
+
+                                      signInverify(verifyOtpController,widget.email);
+
                                 }, child: const Text('Next')));
                       }
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Didn’t receive the OTP?'),
-                        TextButton(onPressed: (){}, child: const Text('Resend OTP'))
-                      ],
-                    )
+
                   ],
                 ),
               ),
@@ -134,10 +123,12 @@ class _PinCode_verificationState extends State<OTP_verification> {
     );
   }
 
-Future<void>verifyOTP(VerifyOtpController controller,String identifireId) async {
-  final response = await controller.verifyotp(
-    identifireId.trim(),
-      _otpTEC.text.trim()
+
+Future<void>signInverify(VerifyOtpController controller,String email) async {
+
+  final response = await controller.signInverify(
+      _otpTEC.text.trim(),
+     email.trim()
   );
   if (response) {
     Get.offAll(()=>const HomePage());
@@ -149,5 +140,4 @@ Future<void>verifyOTP(VerifyOtpController controller,String identifireId) async 
     }
   }
 }
-
 }

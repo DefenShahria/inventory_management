@@ -14,7 +14,6 @@ class SigninController extends GetxController{
   int get userid =>_userid;
 
   Future<bool> verifySignin(String email) async {
-    print('444444444444444444444444444444444');
     _signinVerificationInprogress = true;
     update();
     final Networkresponse response = await Networkcall().postRequest(
@@ -25,7 +24,7 @@ class SigninController extends GetxController{
     _signinVerificationInprogress = false;
     update();
     if (response.issuccess) {
-      print('555555555555555555555555555');
+
       print(response.responseJson);
       return true;
     } else {

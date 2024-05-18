@@ -155,7 +155,7 @@ class _PinCode_verificationState extends State<Sign_up_page> {
       _businessTypeTEC.text
     );
     if (response) {
-      Get.to( OTP_verification(identifier_id: '${signupcontroller.identifier_id}', email: '${_emailTEC.text}', routename: routename,));
+      Get.to( OTP_verification(identifier_id: '${signupcontroller.identifier_id}', email: '${_emailTEC.text}',));
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
